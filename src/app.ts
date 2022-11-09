@@ -5,5 +5,6 @@ const app = express();
 
 app.use(express.json());
 app.use('/cars', routes.carsRoute);
+app.use('/motorcycles', routes.motorsRoute);
 
 export default app;
