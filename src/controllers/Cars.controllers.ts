@@ -35,4 +35,25 @@ export default class CarController {
       return res.status(404).json({ error: 'Object not found' });
     }
   }
+
+  public async updateById(req: Request, res: Response): Promise<Response> {
+    if (req.params.id.length < 24) {
+      return res.status(400)
+        .json({ error: 'Id must have 24 hexadecimal characters' });
+    }
+    console.log(Object.values(req.body));
+    
+    if (!Object.values(req.body).length) {
+      return res.status(400).json({ error: 'Body required' });
+    }
+
+    try {
+      const carResult = await this._carService
+        .updateCarById(req.params.id as string, req.body as ICar);
+
+      return res.status(200).json(carResult);
+    } catch (error) {
+      return res.status(404).json({ error: 'Object not found' });
+    }
+  }
 }
