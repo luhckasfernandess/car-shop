@@ -14,4 +14,10 @@ export default class MotorcycleController {
       return res.status(400).json(error);
     }
   }
+
+  public async readAll(req: Request, res: Response): Promise<Response> {
+    const allMotors = await this._motoService.readAllMotors();
+
+    return res.status(200).json(allMotors);
+  }
 }

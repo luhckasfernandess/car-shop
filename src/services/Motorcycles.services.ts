@@ -11,4 +11,10 @@ export default class MotorcycleService {
 
     return this._motorcycleModel.create(parsed.data);
   }
+
+  public async readAllMotors(): Promise<IMotorcycle[]> {
+    const cars = await this._motorcycleModel.read();
+
+    return cars;
+  }
 }
