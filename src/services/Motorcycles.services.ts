@@ -17,4 +17,12 @@ export default class MotorcycleService {
 
     return cars;
   }
+
+  public async readMotoById(id: string): Promise<IMotorcycle> {
+    const findMoto = await this._motorcycleModel.readOne(id);
+
+    if (!findMoto) throw new Error();
+
+    return findMoto;
+  }
 }
