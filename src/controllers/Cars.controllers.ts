@@ -3,15 +3,21 @@ import { ICar } from '../interfaces/ICar';
 import CarService from '../services/Cars.services';
 
 export default class CarController {
-  constructor(private carService: CarService) { }
+  constructor(private _carService: CarService) { }
 
-  public async create(req: Request, res: Response) {
+  public async create(req: Request, res: Response): Promise<Response> {
     try {
-      const results = await this.carService.create(req.body as ICar);
+      const results = await this._carService.createCar(req.body as ICar);
 
       return res.status(201).json(results);
     } catch (error) {
       return res.status(400).json(error);
     }
+  }
+
+  public async readAll(req: Request, res: Response): Promise<Response> {
+    const allCars = await this._carService.readAllCars();
+
+    return res.status(200).json(allCars);
   }
 }

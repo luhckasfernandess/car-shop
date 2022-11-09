@@ -8,5 +8,6 @@ const carsRoute = Router();
 const crudCar = new CarController(new CarService(new CarModel()));
 
 carsRoute.post('/', (req, res) => crudCar.create(req, res));
+carsRoute.get('/', (req, res) => crudCar.readAll(req, res));
 
 export default carsRoute;
