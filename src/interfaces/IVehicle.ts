@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const zodSchemaVehicle = z.object({
+export const zodSchemaVehicle = z.object({
   model: z.string().min(3),
   color: z.string().min(3),
   status: z.boolean().optional(),
