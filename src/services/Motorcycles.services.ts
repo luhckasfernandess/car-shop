@@ -25,4 +25,16 @@ export default class MotorcycleService {
 
     return findMoto;
   }
+
+  public async updateMotoById(carId: string, body: IMotorcycle): Promise<IMotorcycle> {
+    const bodyParsed = zodSchemaMotorcycle.safeParse(body);
+
+    if (!bodyParsed.success) throw bodyParsed.error;
+
+    const motoUpdated = await this._motorcycleModel.update(carId, bodyParsed.data);
+
+    if (!motoUpdated) throw new Error();
+
+    return motoUpdated;
+  }
 }

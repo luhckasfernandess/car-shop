@@ -36,4 +36,25 @@ export default class MotorcycleController {
       return res.status(404).json({ error: ErrorMessages.NOT_FOUND });
     }
   }
+
+  public async updateById(req: Request, res: Response): Promise<Response> {
+    if (req.params.id.length < 24) {
+      return res.status(400)
+        .json({ error: ErrorMessages.INVALID_PARAM });
+    }
+    console.log(Object.values(req.body));
+
+    if (!Object.values(req.body).length) {
+      return res.status(400).json({ error: ErrorMessages.BODY_REQUIRED });
+    }
+
+    try {
+      const motoResult = await this._motoService
+        .updateMotoById(req.params.id as string, req.body as IMotorcycle);
+
+      return res.status(200).json(motoResult);
+    } catch (error) {
+      return res.status(404).json({ error: ErrorMessages.NOT_FOUND });
+    }
+  }
 }
