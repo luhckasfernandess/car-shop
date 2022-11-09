@@ -13,6 +13,16 @@ export default class CarService {
   }
 
   public async readAllCars(): Promise<ICar[]> {
-    return this._carModel.read();
+    const cars = await this._carModel.read();
+
+    return cars;
+  }
+
+  public async readCarById(id: string): Promise<ICar> { 
+    const findCar = await this._carModel.readOne(id);
+    
+    if (!findCar?.color) throw new Error('Car not found');
+
+    return findCar;
   }
 }

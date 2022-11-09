@@ -20,4 +20,19 @@ export default class CarController {
 
     return res.status(200).json(allCars);
   }
+
+  public async readById(req: Request, res: Response): Promise<Response> {
+    if (req.params.id.length < 24) {
+      return res.status(400)
+        .json({ error: 'Id must have 24 hexadecimal characters' });
+    }
+    
+    try {
+      const carResult = await this._carService.readCarById(req.params.id as string);
+
+      return res.status(200).json(carResult);
+    } catch (error) {
+      return res.status(404).json({ error: 'Object not found' });
+    }
+  }
 }
