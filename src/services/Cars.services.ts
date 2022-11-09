@@ -37,4 +37,12 @@ export default class CarService {
 
     return carUpdated;
   }
+
+  public async deleteCarById(carId: string): Promise<ICar | null> { 
+    const carDeleted = await this._carModel.delete(carId);
+    
+    if (!carDeleted) throw new Error();
+
+    return carDeleted;
+  }
 }

@@ -14,4 +14,6 @@ carsRoute.get('/:id', (req, res) => crudCar.readById(req, res));
 
 carsRoute.put('/:id', (req, res) => crudCar.updateById(req, res));
 
+carsRoute.delete('/:id', (req, res) => crudCar.deleteById(req, res));
+
 export default carsRoute;

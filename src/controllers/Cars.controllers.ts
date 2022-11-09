@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import ErrorMessages from '../interfaces/Errors.enum';
 import { ICar } from '../interfaces/ICar';
 import CarService from '../services/Cars.services';
 
@@ -24,7 +25,7 @@ export default class CarController {
   public async readById(req: Request, res: Response): Promise<Response> {
     if (req.params.id.length < 24) {
       return res.status(400)
-        .json({ error: 'Id must have 24 hexadecimal characters' });
+        .json({ error: ErrorMessages.INVALID_PARAM });
     }
     
     try {
@@ -32,19 +33,19 @@ export default class CarController {
 
       return res.status(200).json(carResult);
     } catch (error) {
-      return res.status(404).json({ error: 'Object not found' });
+      return res.status(404).json({ error: ErrorMessages.NOT_FOUND });
     }
   }
 
   public async updateById(req: Request, res: Response): Promise<Response> {
     if (req.params.id.length < 24) {
       return res.status(400)
-        .json({ error: 'Id must have 24 hexadecimal characters' });
+        .json({ error: ErrorMessages.INVALID_PARAM });
     }
     console.log(Object.values(req.body));
     
     if (!Object.values(req.body).length) {
-      return res.status(400).json({ error: 'Body required' });
+      return res.status(400).json({ error: ErrorMessages.BODY_REQUIRED });
     }
 
     try {
@@ -53,7 +54,22 @@ export default class CarController {
 
       return res.status(200).json(carResult);
     } catch (error) {
-      return res.status(404).json({ error: 'Object not found' });
+      return res.status(404).json({ error: ErrorMessages.NOT_FOUND });
+    }
+  }
+
+  public async deleteById(req: Request, res: Response): Promise<Response> {
+    if (req.params.id.length < 24) {
+      return res.status(400)
+        .json({ error: ErrorMessages.INVALID_PARAM });
+    }
+
+    try {
+      const carResult = await this._carService.deleteCarById(req.params.id as string);
+
+      return res.status(204).json(carResult);
+    } catch (error) {
+      return res.status(404).json({ error: ErrorMessages.NOT_FOUND });
     }
   }
 }

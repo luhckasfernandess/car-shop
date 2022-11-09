@@ -28,10 +28,10 @@ abstract class MongoModel<T> implements IModel<T> {
     return this._model.findByIdAndUpdate(id, obj, { new: true });
   }
 
-  public async delete(carId: string): Promise<T | null> {
-    if (!isValidObjectId(carId)) throw Error('InvalidMongoId');
-
-    return this._model.findByIdAndDelete({ carId });
+  public async delete(_id: string): Promise<T | null> {
+    console.log(this._model.findByIdAndRemove({ _id }));
+    
+    return this._model.findByIdAndRemove({ _id });
   }
 }
 
