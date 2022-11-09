@@ -14,4 +14,6 @@ motorsRoute.get('/:id', (req, res) => crudMoto.readById(req, res));
 
 motorsRoute.put('/:id', (req, res) => crudMoto.updateById(req, res));
 
+motorsRoute.delete('/:id', (req, res) => crudMoto.deleteById(req, res));
+
 export default motorsRoute;

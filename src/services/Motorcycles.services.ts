@@ -37,4 +37,12 @@ export default class MotorcycleService {
 
     return motoUpdated;
   }
+
+  public async deleteMotoById(motoId: string): Promise<IMotorcycle | null> {
+    const motoDeleted = await this._motorcycleModel.delete(motoId);
+
+    if (!motoDeleted) throw new Error();
+
+    return motoDeleted;
+  }
 }

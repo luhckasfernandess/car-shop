@@ -57,4 +57,19 @@ export default class MotorcycleController {
       return res.status(404).json({ error: ErrorMessages.NOT_FOUND });
     }
   }
+
+  public async deleteById(req: Request, res: Response): Promise<Response> {
+    if (req.params.id.length < 24) {
+      return res.status(400)
+        .json({ error: ErrorMessages.INVALID_PARAM });
+    }
+
+    try {
+      const motoResult = await this._motoService.deleteMotoById(req.params.id as string);
+
+      return res.status(204).json(motoResult);
+    } catch (error) {
+      return res.status(404).json({ error: ErrorMessages.NOT_FOUND });
+    }
+  }
 }
