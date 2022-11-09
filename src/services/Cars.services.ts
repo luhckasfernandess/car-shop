@@ -21,8 +21,20 @@ export default class CarService {
   public async readCarById(id: string): Promise<ICar> { 
     const findCar = await this._carModel.readOne(id);
     
-    if (!findCar?.color) throw new Error('Car not found');
+    if (!findCar) throw new Error();
 
     return findCar;
+  }
+
+  public async updateCarById(carId: string, body: ICar): Promise<ICar> {
+    const bodyParsed = zodSchemaCar.safeParse(body);
+
+    if (!bodyParsed.success) throw bodyParsed.error;
+
+    const carUpdated = await this._carModel.update(carId, bodyParsed.data);
+
+    if (!carUpdated) throw new Error();
+
+    return carUpdated;
   }
 }

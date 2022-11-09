@@ -17,15 +17,15 @@ abstract class MongoModel<T> implements IModel<T> {
 
     return this._model.findOne({ id: carId });
   }
-  
+
   public async create(car: T): Promise<T> {
     return this._model.create({ ...car });
   }
 
-  public async update(carId: string, obj: Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(carId)) throw Error('InvalidMongoId');
+  public async update(id: string, obj: Partial<T>): Promise<T | null> {
+    if (!isValidObjectId(id)) throw Error('InvalidMongoId');
 
-    return this._model.findByIdAndUpdate(carId, obj, { new: true });
+    return this._model.findByIdAndUpdate(id, obj, { new: true });
   }
 
   public async delete(carId: string): Promise<T | null> {
