@@ -39,7 +39,6 @@ describe('Test car Controller', () => {
     describe('On Success', async () => {
       it('status to be 201', async () => {
         const statusStub = res.status as sinon.SinonStub;
-        console.log(statusStub);
 
         expect(statusStub.calledWith(201));
       });
@@ -49,6 +48,16 @@ describe('Test car Controller', () => {
 
         expect(jsonStub.calledWith(carMockId));
       });
+    });
+  });
+
+  describe('List all cars', () => {
+    beforeEach(async () => {
+      sinon
+        .stub(carService, 'readAllCars')
+        .resolves([carMockId]);
+
+      await carController.readAll(req, res);
     });
   });
 });

@@ -23,6 +23,10 @@ describe('Test car Services', () => {
     sinon.stub(carModel, 'readOne').onCall(0)
       .resolves(carMockId)
       .onCall(1).resolves(null);
+    sinon
+      .stub(carModel, 'delete')
+      .onCall(0).resolves(carMockId)
+      .onCall(1).resolves(null);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -53,6 +57,14 @@ describe('Test car Services', () => {
       const carResult = await carService.readCarById(carMockId._id);
 
       expect(carResult).to.be.deep.equal(carMockId);
+    });
+  });
+
+  describe('Delete car', () => {
+    it('Success', async () => {
+      const carDeleted = await carService.deleteCarById(carMockId._id);
+
+      expect(carDeleted).to.be.deep.equal(carMockId);
     });
   });
 });
