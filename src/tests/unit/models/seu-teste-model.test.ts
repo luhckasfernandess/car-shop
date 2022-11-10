@@ -10,7 +10,7 @@ describe('Teste car Model', () => {
   const carModel = new CarModel();
 
   before(async () => {
-    sinon.stub(Model, 'create').resolves(carMockId);
+    sinon.stub(Model, 'create').resolves(carMockId)
   });
 
   after(() => {
